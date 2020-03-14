@@ -39,6 +39,7 @@ dependencies {
     testImplementation(test.junit)
     implementation(libs.kotlinLib)
 
+//    implementation 'org.lynxz.transfragment:TransFragment:1.0.0'
     implementation project(path: ':transfragment_lib')
 
     if (use_androidx) {

@@ -8,6 +8,13 @@
     tools:context=".MainActivity">
 
     <Button
+        android:id="@+id/btn_record_check"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:text="录音权限是否已授权" />
+
+    <Button
         android:id="@+id/btn_req_single"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

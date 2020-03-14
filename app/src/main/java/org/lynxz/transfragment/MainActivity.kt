@@ -11,12 +11,12 @@ import org.lynxz.transfragment_lib.PermissionResultInfo
 
 class MainActivity : AppCompatActivity() {
 
-    val permissionCallback = object : IPermissionCallback {
+    // 权限申请回调
+    private val permissionCallback = object : IPermissionCallback {
         override fun onRequestResult(permission: PermissionResultInfo) {
             // 具体某个权限的授权结果
             val msg =
                 "授权结果\n权限名=${permission.name},是否授权=${permission.granted},是否可再弹出系统权限框=${permission.shouldShowRequestPermissionRationale}\n"
-            LoggerUtil.d(msg)
             tv_info.append(msg)
         }
 
@@ -29,8 +29,18 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        // 注入权限申请fragment
         val permissionFrag =
             BaseTransFragment.getTransFragment(this, "permission_tag", PermissionFragment())
+
+        // 判断指定权限是否已被授予
+        btn_record_check.setOnClickListener {
+            val permissionGranted =
+                PermissionFragment.isPermissionGranted(this, Manifest.permission.RECORD_AUDIO)
+            tv_info.append(
+                "录音权限: ${if (permissionGranted) "已授权" else "未授权"}"
+            )
+        }
 
         // 申请单个权限
         btn_req_single.setOnClickListener {

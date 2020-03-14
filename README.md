@@ -1,5 +1,15 @@
 # 透明fragment,子类用于封装实现一些长逻辑
 
+## 导包
+```gradle
+// app/build.gradle
+// 需要kotlin支持
+
+implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.61'
+implementation 'com.android.support:appcompat-v7:28.0.0'
+implementation 'org.lynxz.transfragment:TransFragment:1.0.0'
+```
+
 ## `BaseTransFragment`
  * 透明fragment基类,子类用于封装实现一些长逻辑,并对外暴露调用方法
  * 使用方法:
@@ -15,7 +25,7 @@
 5. 通过 [startSettingActivity] 来跳转到设置页面
 6. 使用示例:
 ```kotlin
- // 1. 注入权限申请fragment到指定的 activity 中
+ // 1. 在activity#onCreate()后,注入权限申请fragment
  val permissionFrag = BaseTransFragment.getTransFragment(hostActivity, "permission_tag", PermissionFragment())
 
  // 2. 设置回调接口
