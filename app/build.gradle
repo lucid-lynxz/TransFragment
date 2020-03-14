@@ -1,0 +1,64 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply from: "../config/sign.gradle"
+
+android {
+    compileSdkVersion androidCompileSdkVersion
+    buildToolsVersion androidBuildToolsVersion
+    defaultConfig {
+        minSdkVersion androidMinSdkVersion
+        targetSdkVersion androidTargetSdkVersion
+
+        applicationId "org.lynxz.transfragment"
+        versionCode 1
+        versionName "1.0"
+
+        if (use_androidx) {
+            testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        } else {
+            testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        }
+    }
+
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.release
+        }
+        release {
+            initWith(debug)
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    testImplementation(test.junit)
+    implementation(libs.kotlinLib)
+
+    implementation project(path: ':transfragment_lib')
+
+    if (use_androidx) {
+        androidTestImplementation(test.junitExtX)
+        androidTestImplementation(test.espressoX)
+        androidTestImplementation(test.testRunnerX)
+
+        implementation(libs.appcompatX)
+//        implementation(libs.supportV4X)
+        implementation(libs.constraintLayoutX)
+
+        implementation(libs.ktxCore)
+        implementation(libs.kotlinxCoroutinesCore)
+        implementation(libs.kotlinxCoroutinesAndroid)
+    } else {
+        androidTestImplementation(test.espresso)
+        androidTestImplementation(test.testRunner)
+
+        implementation(libs.appcompat)
+//        implementation(libs.supportV4)
+        implementation(libs.constraintLayout)
+    }
+}

@@ -1,0 +1,3 @@
+rootProject.name='TransFragment'
+include ':app'
+include ':transfragment_lib'
